@@ -60,4 +60,10 @@ public class ClientController {
             return modelAndView;
         }
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "store/client/login";
+    }
 }
