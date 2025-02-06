@@ -2,5 +2,19 @@
 <body>
 <h1>Bienvenue dans la boutique !</h1>
 
+<div th:if="${session.client}">
+    <p>Bienvenue, <span th:text="${session.client.prenom}"></span> <span th:text="${session.client.nom}"></span> !</p>
+    <a th:href="@{/store/client/logout}">Se déconnecter</a>
+</div>
+<div th:unless="${session.client}">
+    <a th:href="@{/store/client/login}">Se connecter</a>
+</div>
+
+<a href="/store/client/login">Connexion</a>
+<a href="/store/client/register">Création d'un compte</a>
+
+<a href="/store/init">Initialiser les données</a>
+
+
 </body>
 </html>
