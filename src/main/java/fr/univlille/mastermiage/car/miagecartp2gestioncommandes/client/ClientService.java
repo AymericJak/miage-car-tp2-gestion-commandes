@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService implements IClient {
@@ -25,5 +26,10 @@ public class ClientService implements IClient {
     public void create(String email, String password, String nom, String prenom) {
         Client client = new Client(email, password, nom, prenom);
         clientRepository.save(client);
+    }
+
+    @Override
+    public Optional<Client> findByEmail(String email) {
+        return clientRepository.findById(email);
     }
 }

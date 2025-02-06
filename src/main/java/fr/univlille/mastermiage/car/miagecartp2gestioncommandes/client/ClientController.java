@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/store/client")
 public class ClientController {
@@ -29,4 +31,30 @@ public class ClientController {
         return modelAndView;
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "store/client/login";
+    }
+
+    @PostMapping("/login")
+    public ModelAndView login(@RequestParam String email, @RequestParam String password) {
+        Optional<Client> client = clientService.findByEmail(email);
+
+        ModelAndView modelAndView = new ModelAndView("store/client/login");
+
+        if (client.isPresent()) {
+            if (client.get().getPassword().equals(password)) {
+                modelAndView = new ModelAndView("store/client/successfull-login");
+                modelAndView.addObject("prenom", client.get().getPrenom());
+                modelAndView.addObject("nom", client.get().getNom());
+                return modelAndView;
+            } else {
+                modelAndView.addObject("error", "Mot de passe incorrect.");
+                return modelAndView;
+            }
+        } else {
+            modelAndView.addObject("error", "Email incorrect.");
+            return modelAndView;
+        }
+    }
 }
