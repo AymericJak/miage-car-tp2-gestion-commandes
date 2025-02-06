@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
@@ -62,8 +63,8 @@ public class ClientController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public RedirectView logout(HttpSession session) {
         session.invalidate();
-        return "store/client/login";
+        return new RedirectView("/store/client/login");
     }
 }
