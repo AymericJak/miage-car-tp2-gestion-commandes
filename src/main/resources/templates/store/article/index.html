@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Articles</h1>
+
+<div id="articles">
+    <div th:each="article: ${articles}">
+        Libelle : <span th:text="${article.getLibelle()}"></span>
+        Prix : <span th:text="${article.getPrix()}"></span>
+        Quantité en stock : <span th:text="${article.getQuantite()}"></span>
+    </div>
+</div>
+
+<a href="">Ajouter un article</a>
+</body>
+</html>
