@@ -1,7 +1,12 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>Error 404! </h1>
-<a href="/store/home">Accueil</a>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+    <head th:replace="~{fragments/head :: common_head('Erreur 404')}"></head>
+
+    <body>
+        <header th:replace="~{fragments/header :: common_header}"></header>
+
+        <h1>Error 404! </h1>
+        <a href="/store/home">Accueil</a>
+
+        <footer th:replace="~{fragments/footer :: common_footer}"></footer>
+    </body>
 </html>

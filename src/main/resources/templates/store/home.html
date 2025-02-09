@@ -1,19 +1,11 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<h1>Bienvenue dans la boutique !</h1>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+    <head th:replace="~{fragments/head :: common_head('Accueil')}"></head>
 
-<div th:if="${session.client}">
-    <p>Bienvenue, <span th:text="${session.client.prenom}"></span> <span th:text="${session.client.nom}"></span> !</p>
-    <a href="/store/client/logout">Se déconnecter</a>
-</div>
-<div th:unless="${session.client}">
-    <a href="/store/client/register">Se connecter</a>
-</div>
+    <body>
+        <header th:replace="~{fragments/header :: common_header}"></header>
 
-<a href="/store/client/register">Création d'un compte</a>
+        <h1>Bienvenue dans la boutique !</h1>
 
-<a href="/store/init">Initialiser les données</a>
-
-<a href="/store/article">Articles</a>
-</body>
+        <footer th:replace="~{fragments/footer :: common_footer}"></footer>
+    </body>
 </html>

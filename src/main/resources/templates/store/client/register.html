@@ -1,12 +1,19 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<h1>Création d'un compte !</h1>
-    <form action="/store/client/create" method="post">
-        Email : <input type="email" name="email" id="email" placeholder="Email">
-        Password : <input type="password" name="password" id="password" placeholder="Mot de passe">
-        Nom : <input type="text" name="nom" id="nom" placeholder="Nom">
-        Prénom : <input type="text" name="prenom" id="prenom" placeholder="Prénom">
-        <input type="submit">
-    </form>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+    <head th:replace="~{fragments/head :: common_head('Inscription')}"></head>
+
+    <body>
+        <header th:replace="~{fragments/header :: common_header}"></header>
+
+        <h1>Création d'un compte !</h1>
+        <form action="/store/client/create" method="post">
+            Email : <input type="email" name="email" id="email" placeholder="Email">
+            Password : <input type="password" name="password" id="password" placeholder="Mot de passe">
+            Nom : <input type="text" name="nom" id="nom" placeholder="Nom">
+            Prénom : <input type="text" name="prenom" id="prenom" placeholder="Prénom">
+            <input type="submit">
+        </form>
+
+        <footer th:replace="~{fragments/footer :: common_footer}"></footer>
+    </body>
+    </body>
 </html>

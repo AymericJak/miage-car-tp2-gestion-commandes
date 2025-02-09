@@ -1,15 +1,22 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<h1>Articles</h1>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+    <head th:replace="~{fragments/head :: common_head('Articles')}"></head>
 
-<div id="articles">
-    <div th:each="article: ${articles}">
-        Libelle : <span th:text="${article.getLibelle()}"></span>
-        Prix : <span th:text="${article.getPrix()}"></span>
-        Quantité en stock : <span th:text="${article.getQuantite()}"></span>
-    </div>
-</div>
+    <body>
+        <header th:replace="~{fragments/header :: common_header}"></header>
 
-<a href="">Ajouter un article</a>
-</body>
+        <h1>Articles</h1>
+
+        <div id="articles">
+            <div th:each="article: ${articles}">
+                Libelle : <span th:text="${article.getLibelle()}"></span>
+                Prix : <span th:text="${article.getPrix()}"></span>
+                Quantité en stock : <span th:text="${article.getQuantite()}"></span>
+            </div>
+        </div>
+
+        <a href="">Ajouter un article</a>
+
+        <footer th:replace="~{fragments/footer :: common_footer}"></footer>
+    </body>
+    </body>
 </html>

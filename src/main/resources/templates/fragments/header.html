@@ -1,0 +1,27 @@
+<header th:fragment="common_header">
+    <nav>
+        <ul>
+            <li>
+                <a th:href="@{/store/home}">Accueil</a>
+            </li>
+
+            <!-- Si le client est connecté -->
+            <li th:if="${session.client}">
+                <span>Bienvenue, <strong th:text="${session.client.prenom}"></strong> <strong
+                        th:text="${session.client.nom}"></strong> !</span>
+                <a th:href="@{/store/client/logout}">Se déconnecter</a>
+            </li>
+
+            <!-- Si le client n'est pas connecté -->
+            <li th:unless="${session.client}">
+                <a th:href="@{/store/client/login}">Se connecter</a> |
+                <a th:href="@{/store/client/register}">Création d'un compte</a>
+            </li>
+
+            <!-- Liens accessibles à tous -->
+            <li><a th:href="@{/store/init}">Initialiser les données</a></li>
+            <li><a th:href="@{/store/article}">Articles</a></li>
+        </ul>
+    </nav>
+    <hr>
+</header>

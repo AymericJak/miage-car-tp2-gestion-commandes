@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Inscription réussie</title>
-</head>
-<body>
-    <h1>Compte créé avec succès !</h1>
-    <p>Bienvenue, <span th:text="${prenom}"></span> <span th:text="${nom}"></span> !</p>
-    <a href="/store/home">Retour à l'accueil</a>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+    <head th:replace="~{fragments/head :: common_head('Inscription réussie')}"></head>
+
+    <body>
+        <header th:replace="~{fragments/header :: common_header}"></header>
+
+        <h1>Compte créé avec succès !</h1>
+        <p>Bienvenue, <span th:text="${prenom}"></span> <span th:text="${nom}"></span> !</p>
+        <a href="/store/home">Retour à l'accueil</a>
+
+        <footer th:replace="~{fragments/footer :: common_footer}"></footer>
+    </body>
 </html>
