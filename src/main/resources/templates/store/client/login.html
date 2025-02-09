@@ -1,24 +1,26 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
-    <head th:replace="~{fragments/head :: common_head('Connexion')}"></head>
+	<head th:replace="~{fragments/head :: common_head('Connexion')}"></head>
 
-    <body>
-        <header th:replace="~{fragments/header :: common_header}"></header>
+	<body>
+		<header th:replace="~{fragments/header :: common_header}"></header>
 
-        <h1>Connexion</h1>
-        <form action="/store/client/login" method="post">
-            Email : <input type="email" name="email" placeholder="Email" required/>
-            <br>
-            Mot de passe :<input type="password" name="password" placeholder="Mot de passe" required/>
-            <br>
-            <button type="submit">Se connecter</button>
-        </form>
+		<div class="container">
 
-        <p style="color: red;" th:if="${error}" th:text="${error}"></p>
+			<h1>Connexion</h1>
+			<form action="/store/client/login" method="post">
+				Email : <input type="email" name="email" placeholder="Email" required/>
+				<br>
+				Mot de passe :<input type="password" name="password" placeholder="Mot de passe" required/>
+				<br>
+				<button type="submit">Se connecter</button>
+			</form>
 
-        <p>Vous ne possédez pas de compte ?</p>
-        <a href="/store/client/register">Créer un compte</a>
+			<p style="color: red;" th:if="${error}" th:text="${error}"></p>
 
-        <footer th:replace="~{fragments/footer :: common_footer}"></footer>
-    </body>
-    </body>
+			<p>Vous ne possédez pas de compte ?</p>
+			<a href="/store/client/register">Créer un compte</a>
+		</div>
+		<footer th:replace="~{fragments/footer :: common_footer}"></footer>
+	</body>
+	</body>
 </html>
