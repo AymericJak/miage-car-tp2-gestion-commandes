@@ -61,3 +61,49 @@ footer {
 	border-radius: 5px;
 	font-size: 14px;
 }
+
+.form-container {
+	max-width: 400px;
+	margin: 0 auto;
+	padding: 1rem;
+	background: #F8F9FA;
+	border-radius: 5px;
+	border: black solid 1px;
+	/*display: flex;*/
+	/*flex-direction: column;*/
+	/*gap: 1rem;*/
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1.5rem;
+}
+
+.form-group label {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.form-group input {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	font-size: 1rem;
+}
+
+.btn-submit {
+	width: 100%;
+	padding: 10px;
+	background: #3B62A5;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+	background: #1C4180;
+}

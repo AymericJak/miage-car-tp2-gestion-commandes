@@ -14,11 +14,15 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/store")
 public class StoreController {
 
-    @Autowired
-    private IClient clientService;
+    private final IClient clientService;
+
+    private final IArticle articleService;
 
     @Autowired
-    private IArticle articleService;
+    public StoreController(IClient clientService, IArticle articleService) {
+        this.clientService = clientService;
+        this.articleService = articleService;
+    }
 
     @GetMapping(value = {"", "/home"})
     public String home() {
@@ -32,6 +36,4 @@ public class StoreController {
         articleService.init();
         return new RedirectView("/store/home");
     }
-
-
 }

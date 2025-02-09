@@ -10,8 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/store/article")
 public class ArticleController {
 
+    private final IArticle articleService;
+
     @Autowired
-    private ArticleService articleService;
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
+
 
     @GetMapping("")
     public ModelAndView index() {

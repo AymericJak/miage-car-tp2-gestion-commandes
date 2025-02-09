@@ -1,6 +1,5 @@
 package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article;
 
-import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +8,13 @@ import java.util.List;
 @Service
 public class ArticleService implements IArticle {
 
+
+    private final ArticleRepository articleRepository;
+
     @Autowired
-    private ArticleRepository articleRepository;
+    public ArticleService(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
 
     public void init() {
         Iterable<Article> articles = List.of(new Article[]{

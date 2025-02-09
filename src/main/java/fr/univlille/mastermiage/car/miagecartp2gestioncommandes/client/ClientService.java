@@ -9,8 +9,12 @@ import java.util.Optional;
 @Service
 public class ClientService implements IClient {
 
+    private final ClientRepository clientRepository;
+
     @Autowired
-    private ClientRepository clientRepository;
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     public void init() {
         Iterable<Client> clients = List.of(new Client[]{

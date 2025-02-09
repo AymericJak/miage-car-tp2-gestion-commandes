@@ -16,8 +16,12 @@ import java.util.Optional;
 @RequestMapping("/store/client")
 public class ClientController {
 
+    private final IClient clientService;
+
     @Autowired
-    private IClient clientService;
+    public ClientController(IClient clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping("/register")
     public String register() {
