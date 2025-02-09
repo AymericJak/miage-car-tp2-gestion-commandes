@@ -18,7 +18,7 @@ public class StoreController {
 
     @GetMapping("/home")
     public String home() {
-        return "store/home";
+        return "/store/home";
     }
 
     @GetMapping("/init")
