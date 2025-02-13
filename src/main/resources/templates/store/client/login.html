@@ -5,12 +5,19 @@
 		<header th:replace="~{fragments/header :: common_header}"></header>
 
 		<div class="container">
+			<div th:replace="~{fragments/message :: flash_messages}"></div>
 
 			<h1>Connexion</h1>
+
 			<form action="/store/client/login" method="post" class="form-container">
 				<div class="form-group">
 					<label for="email">Email :</label>
-					<input type="email" id="email" name="email" placeholder="Entrez votre email" value="miage@univ-lille.fr" required>
+					<input type="email"
+						   id="email"
+						   name="email"
+						   placeholder="Entrez votre email"
+						   value="miage@univ-lille.fr"
+						   required>
 				</div>
 				<div class="form-group">
 					<label for="password">Mot de passe :</label>
@@ -24,10 +31,7 @@
 				<button type="submit" class="btn-submit">Se connecter</button>
 			</form>
 
-			<p style="color: red;" th:if="${error}" th:text="${error}"></p>
-
 			<p>Vous ne possédez pas de compte ?</p>
-			<a href="/store/client/register">Créer un compte</a>
 		</div>
 		<footer th:replace="~{fragments/footer :: common_footer}"></footer>
 	</body>

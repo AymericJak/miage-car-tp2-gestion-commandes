@@ -1,11 +1,10 @@
 package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client;
 
-import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.commande.ICommande;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
@@ -27,12 +26,15 @@ public class ClientController {
     }
 
     @PostMapping("/create")
-    public ModelAndView create(@RequestParam String email, @RequestParam String password, @RequestParam String nom, @RequestParam String prenom) {
+    public RedirectView create(@RequestParam String email, @RequestParam String password, @RequestParam String nom, @RequestParam String prenom, RedirectAttributes redirectAttributes) {
+        if (clientService.findByEmail(email).isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Cet email est déjà utilisé.");
+            return new RedirectView("/store/client/register");
+        }
+
         clientService.create(email, password, nom, prenom);
-        ModelAndView modelAndView = new ModelAndView("store/client/successfull-register");
-        modelAndView.addObject("prenom", prenom);
-        modelAndView.addObject("nom", nom);
-        return modelAndView;
+        redirectAttributes.addFlashAttribute("success", "Inscription réussie ! Vous pouvez maintenant vous connecter.");
+        return new RedirectView("/store/client/login");
     }
 
     @GetMapping("/login")
@@ -41,32 +43,29 @@ public class ClientController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+    public RedirectView login(@RequestParam String email, @RequestParam String password, HttpSession session, RedirectAttributes redirectAttributes) {
         Optional<Client> client = clientService.findByEmail(email);
 
-        ModelAndView modelAndView = new ModelAndView("store/client/login");
-
-        if (client.isPresent()) {
-            if (client.get().getPassword().equals(password)) {
-                session.setAttribute("client", client.get());
-
-                modelAndView = new ModelAndView("store/client/successfull-login");
-                modelAndView.addObject("prenom", client.get().getPrenom());
-                modelAndView.addObject("nom", client.get().getNom());
-                return modelAndView;
-            } else {
-                modelAndView.addObject("error", "Mot de passe incorrect.");
-                return modelAndView;
-            }
-        } else {
-            modelAndView.addObject("error", "Email incorrect.");
-            return modelAndView;
+        if (client.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Email incorrect.");
+            return new RedirectView("/store/client/login");
         }
+
+        if (!client.get().getPassword().equals(password)) {
+            redirectAttributes.addFlashAttribute("error", "Mot de passe incorrect.");
+            return new RedirectView("/store/client/login");
+        }
+
+        session.setAttribute("client", client.get());
+        redirectAttributes.addFlashAttribute("success", "Connexion réussie ! Bienvenue, " + client.get().getPrenom() + ".");
+
+        return new RedirectView("/store/home");
     }
 
     @GetMapping("/logout")
-    public RedirectView logout(HttpSession session) {
+    public RedirectView logout(HttpSession session, RedirectAttributes redirectAttributes) {
         session.invalidate();
+        redirectAttributes.addFlashAttribute("success", "Vous avez été déconnecté avec succès.");
         return new RedirectView("/store/client/login");
     }
 }

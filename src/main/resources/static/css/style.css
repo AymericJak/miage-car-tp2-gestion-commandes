@@ -113,3 +113,21 @@ footer {
 	padding: 1rem;
 	margin-bottom: 1rem;
 }
+
+.flash-messages-success {
+	color: #155724;
+	background-color: #D4EDDA;
+	border: 1px solid #C3E6CB;
+	padding: 1rem 1.5rem;
+	border-radius: 5px;
+	margin-bottom: 2rem;
+}
+
+.flash-messages-error {
+	color: #721C24;
+	background-color: #F8D7DA;
+	border: 1px solid #F5C6CB;
+	padding: 1rem 1.5rem;
+	border-radius: 5px;
+	margin-bottom: 2rem;
+}

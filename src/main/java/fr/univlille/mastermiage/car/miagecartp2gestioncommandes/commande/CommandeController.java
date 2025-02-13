@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
@@ -26,11 +27,12 @@ public class CommandeController {
     }
 
     @GetMapping("")
-    public ModelAndView index(HttpSession session) {
+    public ModelAndView index(HttpSession session, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView("store/commande/index");
         Client client = (Client) session.getAttribute("client");
 
         if (client == null) {
+            redirectAttributes.addFlashAttribute("error", "Vossus devez être connecté pour accéder à vos commandes.");
             modelAndView.setViewName("redirect:/store/client/login");
             return modelAndView;
         }
@@ -40,7 +42,7 @@ public class CommandeController {
         return modelAndView;
     }
 
-    private ModelAndView getCommandeOrRedirect(Long id, String viewName) {
+    private ModelAndView getCommandeOrRedirect(Long id, String viewName, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         Optional<Commande> commande = commandeService.findById(id);
 
@@ -48,6 +50,7 @@ public class CommandeController {
             modelAndView.setViewName(viewName);
             modelAndView.addObject("commande", commande.get());
         } else {
+            redirectAttributes.addFlashAttribute("error", "Commande introuvable.");
             modelAndView.setViewName("redirect:/store/commande");
         }
 
@@ -55,32 +58,35 @@ public class CommandeController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView show(@PathVariable Long id) {
-        return getCommandeOrRedirect(id, "store/commande/show");
+    public ModelAndView show(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        return getCommandeOrRedirect(id, "store/commande/show", redirectAttributes);
     }
 
     @GetMapping("/{id}/edit")
-    public ModelAndView edit(@PathVariable Long id) {
-        ModelAndView modelAndView = getCommandeOrRedirect(id, "store/commande/show");
+    public ModelAndView edit(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = getCommandeOrRedirect(id, "store/commande/show", redirectAttributes);
         modelAndView.addObject("editMode", true);
         return modelAndView;
     }
 
     @PostMapping("/{id}/edit")
-    public RedirectView addArticleToCommande(@PathVariable Long id, @RequestParam String libelle, @RequestParam double prix, @RequestParam int quantite, HttpSession session) {
+    public RedirectView addArticleToCommande(@PathVariable Long id, @RequestParam String libelle, @RequestParam double prix, @RequestParam int quantite, HttpSession session, RedirectAttributes redirectAttributes) {
         Client client = (Client) session.getAttribute("client");
         if (client == null) {
+            redirectAttributes.addFlashAttribute("error", "Vous devez être connecté pour modifier une commande.");
             return new RedirectView("store/login");
         }
 
         Optional<Commande> optionalCommande = commandeService.findById(id);
         if (optionalCommande.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Commande introuvable.");
             return new RedirectView("/store/commande");
         }
 
         Commande commande = optionalCommande.get();
 
         if (!commande.getClient().getEmail().equals(client.getEmail())) {
+            redirectAttributes.addFlashAttribute("error", "Vous ne pouvez pas modifier cette commande.");
             return new RedirectView("/store/commande");
         }
 
@@ -89,15 +95,19 @@ public class CommandeController {
         commande.getArticles().add(newArticle);
         commandeService.save(commande);
 
+        redirectAttributes.addFlashAttribute("success", "Article ajouté avec succès !");
         return new RedirectView("/store/commande/" + id + "/edit");
     }
 
     @PostMapping("/create")
-    public RedirectView create(@RequestParam String nom, HttpSession session) {
+    public RedirectView create(@RequestParam String nom, HttpSession session, RedirectAttributes redirectAttributes) {
         Client client = (Client) session.getAttribute("client");
-        if (client != null) {
-            commandeService.create(nom, client);
+        if (client == null) {
+            redirectAttributes.addFlashAttribute("error", "Vous devez être connecté pour créer une commande.");
+            return new RedirectView("/store/client/login");
         }
+        commandeService.create(nom, client);
+        redirectAttributes.addFlashAttribute("success", "Commande créée avec succès !");
         return new RedirectView("/store/commande");
     }
 
