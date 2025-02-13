@@ -131,3 +131,28 @@ footer {
 	border-radius: 5px;
 	margin-bottom: 2rem;
 }
+
+.dev-zone {
+	background-color: #EAEAEA;
+	padding: 1rem;
+	border-radius: 5px;
+	border: 2px dashed black;
+}
+
+.dev-zone a {
+	margin-top: 1rem;
+	display: inline-block;
+	background-color: #FED709;
+	color: black;
+	font-weight: bold;
+	padding: 1rem 2rem;
+	border-radius: 10px;
+	text-decoration: none;
+	transition: all 0.15s ease-in-out;
+}
+
+.dev-zone a:hover {
+	background-color: #f1c40f;
+	outline: 2px solid black;
+	outline-offset: -2px;
+}
