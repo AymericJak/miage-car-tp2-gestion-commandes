@@ -12,6 +12,10 @@
 				<a th:href="@{/store/client/logout}">Se déconnecter</a>
 			</li>
 
+			<li class="menu-element" th:if="${session.client}">
+				<a th:href="@{/store/commande}">Commandes</a>
+			</li>
+
 			<!-- Si le client n'est pas connecté -->
 			<li class="menu-element" th:unless="${session.client}">
 				<a th:href="@{/store/client/login}">Se connecter</a> |
@@ -20,7 +24,6 @@
 
 			<!-- Liens accessibles à tous -->
 			<li class="menu-element"><a th:href="@{/store/init}">Initialiser les données</a></li>
-			<li class="menu-element"><a th:href="@{/store/article}">Articles</a></li>
 		</ul>
 	</nav>
 </header>

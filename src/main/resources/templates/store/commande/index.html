@@ -10,8 +10,7 @@
 
 			<div id="commandes">
 				<div class="commande" th:each="commande: ${commandes}">
-					Client : <a th:href="@{/store/client/{email}/commandes(email=${commande.getClient().getEmail()})}"
-								th:text="${commande.getClient().getEmail()}"></a>
+					Client : <a th:text="${commande.getClient().getEmail()}"></a>
 
 					<br>
 
@@ -33,6 +32,9 @@
 							</tr>
 						</tbody>
 					</table>
+
+					<a th:href="@{/store/commande/{id}(id=${commande.getId()})}">Afficher</a>
+					<a th:href="@{/store/commande/{id}/edit(id=${commande.getId()})}">Éditer</a>
 				</div>
 			</div>
 		</div>

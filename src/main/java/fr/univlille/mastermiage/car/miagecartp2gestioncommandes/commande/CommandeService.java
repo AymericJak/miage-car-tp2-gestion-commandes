@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -62,6 +63,10 @@ public class CommandeService implements ICommande {
 
     public Iterable<Commande> findAllByClientEmail(String email) {
         return commandeRepository.findAllByClientEmail(email);
+    }
+
+    public Optional<Commande> findById(Long id) {
+        return commandeRepository.findById(id);
     }
 
     public void create(Client client, List<Article> articles) {

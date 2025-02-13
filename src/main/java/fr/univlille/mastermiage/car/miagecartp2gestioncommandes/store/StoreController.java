@@ -1,6 +1,5 @@
 package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.store;
 
-import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.IArticle;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client.IClient;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.commande.ICommande;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,11 @@ public class StoreController {
 
     private final IClient clientService;
 
-    private final IArticle articleService;
     private final ICommande commandeService;
 
     @Autowired
-    public StoreController(IClient clientService, IArticle articleService, ICommande commandeService) {
+    public StoreController(IClient clientService, ICommande commandeService) {
         this.clientService = clientService;
-        this.articleService = articleService;
         this.commandeService = commandeService;
     }
 

@@ -1,6 +1,5 @@
 package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client;
 
-import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.commande.Commande;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.commande.ICommande;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,10 @@ import java.util.Optional;
 public class ClientController {
 
     private final IClient clientService;
-    private final ICommande commandeService;
 
     @Autowired
-    public ClientController(IClient clientService, ICommande commandeService) {
+    public ClientController(IClient clientService) {
         this.clientService = clientService;
-        this.commandeService = commandeService;
     }
 
     @GetMapping("/register")
@@ -72,14 +69,4 @@ public class ClientController {
         session.invalidate();
         return new RedirectView("/store/client/login");
     }
-
-    @GetMapping("/{email}/commandes")
-    public ModelAndView getUserCommands(@PathVariable String email) {
-        ModelAndView modelAndView = new ModelAndView("store/commande/index");
-        System.out.println("Test");
-        Iterable<Commande> commandes = commandeService.findAllByClientEmail(email);
-        modelAndView.addObject("commandes", commandes);
-        return modelAndView;
-    }
-
 }

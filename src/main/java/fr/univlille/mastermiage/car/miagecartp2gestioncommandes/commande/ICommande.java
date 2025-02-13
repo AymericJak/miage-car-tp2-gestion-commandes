@@ -4,6 +4,7 @@ import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.Article;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client.Client;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ICommande {
     void init();
@@ -11,6 +12,8 @@ public interface ICommande {
     Iterable<Commande> findAll();
 
     Iterable<Commande> findAllByClientEmail(String email);
+
+    Optional<Commande> findById(Long id);
 
     void create(Client client, List<Article> articles);
 }

@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+	<head th:replace="~{fragments/head :: common_head('Commandes')}"></head>
+
+	<body>
+		<header th:replace="~{fragments/header :: common_header}"></header>
+
+		<div class="container">
+
+			<h1>Commandes</h1>
+
+			<div id="commande">
+				Client : <a th:href="@{/store/client/{email}/commandes(email=${commande.getClient().getEmail()})}"
+							th:text="${commande.getClient().getEmail()}"></a>
+
+				<br>
+
+				<h2>Articles</h2>
+
+				<table border="1">
+					<thead>
+						<tr>
+							<th>Libellé</th>
+							<th>Prix</th>
+							<th>Quantité</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="article : ${commande.getArticles()}">
+							<td th:text="${article.getLibelle()}"></td>
+							<td th:text="${article.getPrix()}"></td>
+							<td th:text="${article.getQuantite()}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<footer th:replace="~{fragments/footer :: common_footer}"></footer>
+	</body>
+</html>
