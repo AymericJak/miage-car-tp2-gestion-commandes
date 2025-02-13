@@ -18,4 +18,6 @@ public interface ICommande {
     void create(String nom, Client client, List<Article> articles);
 
     void create(String nom, Client client);
+
+    void save(Commande commande);
 }

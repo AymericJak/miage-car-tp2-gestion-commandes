@@ -8,6 +8,31 @@
 
 			<h1>Commandes</h1>
 
+<!--	Afficher seulement si editMode == True		-->
+			<h2>Ajouter un article à votre commande</h2>
+
+			<form th:action="@{/store/commande/{id}/edit(id=${commande.id})}" method="post" class="form-container">
+				<div class="form-group">
+					<label for="libelle">Libellé :</label>
+					<input type="text" id="libelle" name="libelle" placeholder="Entrez un libellé" required>
+				</div>
+
+				<div class="form-group">
+					<label for="prix">Prix :</label>
+					<input type="number" min="0" id="prix" name="prix" placeholder="Entrez un prix" required>
+				</div>
+
+				<div class="form-group">
+					<label for="quantite">Quantité :</label>
+					<input type="number" min="1" id="quantite" name="quantite" placeholder="Entrez une quantité" required>
+				</div>
+
+				<button type="submit" class="btn-submit">Ajouter l'article</button>
+			</form>
+
+<!--	Fin condition		-->
+			<h2>Votre commande</h2>
+
 			<div id="commande">
 				Client : <a th:href="@{/store/client/{email}/commandes(email=${commande.getClient().getEmail()})}"
 							th:text="${commande.getClient().getEmail()}"></a>

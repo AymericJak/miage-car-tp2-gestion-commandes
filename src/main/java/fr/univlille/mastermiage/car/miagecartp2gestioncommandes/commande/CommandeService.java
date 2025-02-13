@@ -37,7 +37,7 @@ public class CommandeService implements ICommande {
         List<Commande> commandes = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            String nom= "Nom " + i;
+            String nom = "Nom " + i;
             Client client = clients.get(random.nextInt(clients.size()));
 
             List<Article> articles = new ArrayList<>();
@@ -45,7 +45,7 @@ public class CommandeService implements ICommande {
 
             for (int j = 0; j < nombreArticles; j++) {
                 String libelle = libelles.get(random.nextInt(libelles.size()));
-                double prix = 5 + (random.nextDouble() * 95); // Prix entre 5€ et 100€
+                double prix = random.nextInt(95) + 5; // Prix entre 5€ et 100€
                 int quantite = random.nextInt(5) + 1; // Quantité entre 1 et 5
                 articles.add(new Article(libelle, quantite, prix));
             }
@@ -77,6 +77,10 @@ public class CommandeService implements ICommande {
 
     public void create(String nom, Client client) {
         Commande commande = new Commande(nom, client);
+        commandeRepository.save(commande);
+    }
+
+    public void save(Commande commande) {
         commandeRepository.save(commande);
     }
 }
