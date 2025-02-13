@@ -48,12 +48,13 @@
 
 				<h2 th:text="${commande.getNom()}"></h2>
 
-				<table border="1">
+				<table>
 					<thead>
 						<tr>
 							<th>Libellé</th>
 							<th>Prix</th>
 							<th>Quantité</th>
+							<th th:if="${editMode}">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,6 +62,12 @@
 							<td th:text="${article.getLibelle()}"></td>
 							<td th:text="${article.getPrix()}"></td>
 							<td th:text="${article.getQuantite()}"></td>
+							<td th:if="${editMode}">
+								<form th:action="@{/store/commande/{commandeId}/article/{articleId}/delete(commandeId=${commande.id}, articleId=${article.id})}"
+									  method="post">
+									<button type="submit" class="btn-delete">Supprimer</button>
+								</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>

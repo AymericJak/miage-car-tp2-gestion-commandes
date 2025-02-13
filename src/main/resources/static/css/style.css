@@ -152,7 +152,57 @@ footer {
 }
 
 .dev-zone a:hover {
-	background-color: #f1c40f;
+	background-color: #F1C40F;
 	outline: 2px solid black;
 	outline-offset: -2px;
+}
+
+table {
+	width: 100%;
+	margin-top: 2rem;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+	background-color: #343A40;
+	color: white;
+	text-transform: uppercase;
+}
+
+thead th {
+	padding: 0.8rem;
+	text-align: left;
+	font-weight: bold;
+}
+
+tbody tr {
+	transition: background-color 0.25s ease-in-out;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #F9F9F9;
+}
+
+tbody tr:hover {
+	background-color: #F1F1F1;
+}
+
+td {
+	padding: 0.8rem;
+}
+
+.btn-delete {
+	background-color: #D9534F;
+	color: white;
+	border: none;
+	padding: 8px 12px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: all 0.25s ease-in-out;
+}
+
+.btn-delete:hover {
+	background-color: #C9302C;
+	transform: scale(1.05);
 }

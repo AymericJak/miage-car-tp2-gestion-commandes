@@ -24,4 +24,12 @@ public class ArticleService implements IArticle {
         Article article = new Article(libelle, quantite, prix);
         articleRepository.save(article);
     }
+
+    public void deleteById(Long id) {
+        articleRepository.deleteById(id);
+    }
+
+    public void save(Article article) {
+        articleRepository.save(article);
+    }
 }

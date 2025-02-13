@@ -2,6 +2,7 @@ package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.commande;
 
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.Article;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.ArticleRepository;
+import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.IArticle;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client.Client;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ import java.util.Optional;
 @RequestMapping("store/commande")
 public class CommandeController {
     private final ICommande commandeService;
-    private final ArticleRepository articleRepository;
+    private final IArticle articleService;
 
     @Autowired
-    public CommandeController(ICommande commandeService, ArticleRepository articleRepository) {
+    public CommandeController(ICommande commandeService, IArticle articleService) {
         this.commandeService = commandeService;
-        this.articleRepository = articleRepository;
+        this.articleService = articleService;
     }
 
     @GetMapping("")
@@ -106,7 +107,7 @@ public class CommandeController {
         }
 
         Article newArticle = new Article(libelle, quantite, prix);
-        articleRepository.save(newArticle);
+        articleService.save(newArticle);
         commande.getArticles().add(newArticle);
         commandeService.save(commande);
 
@@ -126,4 +127,40 @@ public class CommandeController {
         return new RedirectView("/store/commande");
     }
 
+    @PostMapping("/{commandeId}/article/{articleId}/delete")
+    public RedirectView deleteArticleFromCommande(@PathVariable Long commandeId, @PathVariable Long articleId, HttpSession session, RedirectAttributes redirectAttributes) {
+        Client client = (Client) session.getAttribute("client");
+        if (client == null) {
+            redirectAttributes.addFlashAttribute("error", "Vous devez être connecté pour modifier une commande.");
+            return new RedirectView("/store/client/login");
+        }
+
+        Optional<Commande> optionalCommande = commandeService.findById(commandeId);
+        if (optionalCommande.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Commande introuvable.");
+            return new RedirectView("/store/commande");
+        }
+
+        Commande commande = optionalCommande.get();
+
+        if (!commande.getClient().getEmail().equals(client.getEmail())) {
+            redirectAttributes.addFlashAttribute("error", "Vous ne pouvez pas modifier cette commande.");
+            return new RedirectView("/store/commande");
+        }
+
+        Optional<Article> optionalArticle = commande.getArticles().stream().filter(article -> article.getId() == articleId).findFirst();
+        if (optionalArticle.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Article introuvable dans cette commande.");
+            return new RedirectView("/store/commande/" + commandeId + "/edit");
+        }
+
+        Article article = optionalArticle.get();
+        commande.getArticles().remove(article);
+        commandeService.save(commande);
+
+        articleService.deleteById(articleId);
+
+        redirectAttributes.addFlashAttribute("success", "Article supprimé avec succès !");
+        return new RedirectView("/store/commande/" + commandeId + "/edit");
+    }
 }
