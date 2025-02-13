@@ -16,16 +16,6 @@ public class ArticleService implements IArticle {
         this.articleRepository = articleRepository;
     }
 
-    public void init() {
-        Iterable<Article> articles = List.of(new Article[]{
-                new Article("Livre", 100, 19.99),
-                new Article("Stylo", 1000, 0.50),
-                new Article("Ordinateur", 20, 249.99)
-        });
-        articleRepository.saveAll(articles);
-
-    }
-
     public Iterable<Article> findAll() {
         return articleRepository.findAll();
     }

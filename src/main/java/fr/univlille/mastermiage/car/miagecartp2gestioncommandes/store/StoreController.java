@@ -36,7 +36,6 @@ public class StoreController {
     @ResponseBody
     public RedirectView init() {
         clientService.init();
-        articleService.init();
         commandeService.init();
         return new RedirectView("/store/home");
     }
