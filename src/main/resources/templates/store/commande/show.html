@@ -1,0 +1,79 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+	<head th:replace="~{fragments/head :: common_head('Commandes')}"></head>
+
+	<body>
+		<header th:replace="~{fragments/header :: common_header}"></header>
+
+		<div class="container">
+
+			<div th:replace="~{fragments/message :: flash_messages}"></div>
+
+			<h1>Commandes</h1>
+
+			<div th:if="${editMode}">
+				<h2>Ajouter un article à votre commande</h2>
+
+				<form th:action="@{/store/commande/{id}/edit(id=${commande.id})}" method="post" class="form-container">
+					<div class="form-group">
+						<label for="libelle">Libellé :</label>
+						<input type="text" id="libelle" name="libelle" placeholder="Entrez un libellé" required>
+					</div>
+
+					<div class="form-group">
+						<label for="prix">Prix :</label>
+						<input type="number" min="0" id="prix" name="prix" placeholder="Entrez un prix" required>
+					</div>
+
+					<div class="form-group">
+						<label for="quantite">Quantité :</label>
+						<input type="number"
+							   min="1"
+							   id="quantite"
+							   name="quantite"
+							   placeholder="Entrez une quantité"
+							   required>
+					</div>
+
+					<button type="submit" class="btn-submit">Ajouter l'article</button>
+				</form>
+			</div>
+
+			<h2>Votre commande</h2>
+
+			<div id="commande">
+				Client : <a th:href="@{/store/client/{email}/commandes(email=${commande.getClient().getEmail()})}"
+							th:text="${commande.getClient().getEmail()}"></a>
+
+				<br>
+
+				<h2 th:text="${commande.getNom()}"></h2>
+
+				<table>
+					<thead>
+						<tr>
+							<th>Libellé</th>
+							<th>Prix</th>
+							<th>Quantité</th>
+							<th th:if="${editMode}">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="article : ${commande.getArticles()}">
+							<td th:text="${article.getLibelle()}"></td>
+							<td th:text="${#numbers.formatDecimal(article.getPrix(), 1, 2)} + ' €'"></td>
+							<td th:text="${article.getQuantite()}"></td>
+							<td th:if="${editMode}">
+								<form th:action="@{/store/commande/{commandeId}/article/{articleId}/delete(commandeId=${commande.id}, articleId=${article.id})}"
+									  method="post">
+									<button type="submit" class="btn-delete">Supprimer</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<h3>Total de la commande : <span th:text="${#numbers.formatDecimal(total, 1, 2)} + ' €'"></span></h3>
+		</div>
+		<footer th:replace="~{fragments/footer :: common_footer}"></footer>
+	</body>
+</html>

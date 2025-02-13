@@ -1,0 +1,9 @@
+<div th:fragment="flash_messages">
+	<div th:if="${success}" class="flash-messages-success">
+		<p th:text="${success}"></p>
+	</div>
+
+	<div th:if="${error}" class="flash-messages-error">
+		<p th:text="${error}"></p>
+	</div>
+</div>

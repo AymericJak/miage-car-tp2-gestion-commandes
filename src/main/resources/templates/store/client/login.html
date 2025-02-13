@@ -1,20 +1,38 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Connexion</title>
-</head>
-<body>
-<h1>Connexion</h1>
-<form action="/store/client/login" method="post">
-    Email : <input type="email" name="email" placeholder="Email" required/>
-    <br>
-    Mot de passe :<input type="password" name="password" placeholder="Mot de passe" required/>
-    <br>
-    <button type="submit">Se connecter</button>
-</form>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+	<head th:replace="~{fragments/head :: common_head('Connexion')}"></head>
 
-<p style="color: red;" th:if="${error}" th:text="${error}"></p>
+	<body>
+		<header th:replace="~{fragments/header :: common_header}"></header>
 
-<p>Vous ne possédez pas de compte ?</p>
-<a href="store/client/register">Créer un compte</a>
-</body>
+		<div class="container">
+			<div th:replace="~{fragments/message :: flash_messages}"></div>
+
+			<h1>Connexion</h1>
+
+			<form action="/store/client/login" method="post" class="form-container">
+				<div class="form-group">
+					<label for="email">Email :</label>
+					<input type="email"
+						   id="email"
+						   name="email"
+						   placeholder="Entrez votre email"
+						   value="miage@univ-lille.fr"
+						   required>
+				</div>
+				<div class="form-group">
+					<label for="password">Mot de passe :</label>
+					<input type="password"
+						   id="password"
+						   name="password"
+						   placeholder="Entrez votre mot de passe"
+						   value="miage"
+						   required>
+				</div>
+				<button type="submit" class="btn-submit">Se connecter</button>
+			</form>
+
+			<p>Vous ne possédez pas de compte ?</p>
+		</div>
+		<footer th:replace="~{fragments/footer :: common_footer}"></footer>
+	</body>
 </html>
