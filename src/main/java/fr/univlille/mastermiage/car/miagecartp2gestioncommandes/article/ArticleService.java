@@ -3,8 +3,6 @@ package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ArticleService implements IArticle {
 

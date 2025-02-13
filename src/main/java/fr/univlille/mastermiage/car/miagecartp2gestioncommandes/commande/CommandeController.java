@@ -1,7 +1,6 @@
 package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.commande;
 
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.Article;
-import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.ArticleRepository;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.IArticle;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client.Client;
 import jakarta.servlet.http.HttpSession;
