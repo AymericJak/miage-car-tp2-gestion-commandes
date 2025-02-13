@@ -37,6 +37,7 @@ public class CommandeService implements ICommande {
         List<Commande> commandes = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
+            String nom= "Nom " + i;
             Client client = clients.get(random.nextInt(clients.size()));
 
             List<Article> articles = new ArrayList<>();
@@ -50,7 +51,7 @@ public class CommandeService implements ICommande {
             }
             articleRepository.saveAll(articles);
 
-            Commande commande = new Commande(client, articles);
+            Commande commande = new Commande(nom, client, articles);
             commandes.add(commande);
         }
 
@@ -69,8 +70,13 @@ public class CommandeService implements ICommande {
         return commandeRepository.findById(id);
     }
 
-    public void create(Client client, List<Article> articles) {
-        Commande commande = new Commande(client, articles);
+    public void create(String nom, Client client, List<Article> articles) {
+        Commande commande = new Commande(nom, client, articles);
+        commandeRepository.save(commande);
+    }
+
+    public void create(String nom, Client client) {
+        Commande commande = new Commande(nom, client);
         commandeRepository.save(commande);
     }
 }

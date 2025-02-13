@@ -4,10 +4,9 @@ import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client.Client;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
@@ -61,5 +60,13 @@ public class CommandeController {
         return getCommandeOrRedirect(id, "store/commande/edit");
     }
 
+    @PostMapping("/create")
+    public RedirectView create(@RequestParam String nom, HttpSession session) {
+        Client client = (Client) session.getAttribute("client");
+        if (client != null) {
+            commandeService.create(nom, client);
+        }
+        return new RedirectView("/store/commande");
+    }
 
 }

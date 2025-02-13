@@ -15,5 +15,7 @@ public interface ICommande {
 
     Optional<Commande> findById(Long id);
 
-    void create(Client client, List<Article> articles);
+    void create(String nom, Client client, List<Article> articles);
+
+    void create(String nom, Client client);
 }

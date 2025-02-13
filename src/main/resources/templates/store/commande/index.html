@@ -8,13 +8,26 @@
 
 			<h1>Commandes</h1>
 
+			<h2>Création d'une commande</h2>
+
+			<form action="/store/commande/create" method="post" class="form-container">
+				<div class="form-group">
+					<label for="nom">Email :</label>
+					<input type="text" id="nom" name="nom" placeholder="Entrez un nom" required>
+				</div>
+
+				<button type="submit" class="btn-submit">Se connecter</button>
+			</form>
+
+			<h2>Mes commandes</h2>
+
 			<div id="commandes">
 				<div class="commande" th:each="commande: ${commandes}">
 					Client : <a th:text="${commande.getClient().getEmail()}"></a>
 
 					<br>
 
-					<h2>Articles</h2>
+					<h2 th:text="${commande.getNom()}"></h2>
 
 					<table border="1">
 						<thead>

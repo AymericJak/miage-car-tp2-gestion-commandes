@@ -15,6 +15,8 @@ public class Commande {
 //    @Column(name = "ID")
     private Long id;
 
+    private String nom;
+
     @OneToMany
 //    @Column(name = "ARTICLES")
     private List<Article> articles = new ArrayList<>();
@@ -25,9 +27,15 @@ public class Commande {
     public Commande() {
     }
 
-    public Commande(Client client, List<Article> articles) {
+    public Commande(String nom, Client client, List<Article> articles) {
+        this.nom = nom;
         this.client = client;
         this.articles = articles;
+    }
+
+    public Commande(String nom, Client client) {
+        this.nom = nom;
+        this.client = client;
     }
 
     public Long getId() {
@@ -48,5 +56,13 @@ public class Commande {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 }
