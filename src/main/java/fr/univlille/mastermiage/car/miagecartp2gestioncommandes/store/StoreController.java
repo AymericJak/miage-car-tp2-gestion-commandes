@@ -2,6 +2,7 @@ package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.store;
 
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.article.IArticle;
 import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client.IClient;
+import fr.univlille.mastermiage.car.miagecartp2gestioncommandes.commande.ICommande;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,13 @@ public class StoreController {
     private final IClient clientService;
 
     private final IArticle articleService;
+    private final ICommande commandeService;
 
     @Autowired
-    public StoreController(IClient clientService, IArticle articleService) {
+    public StoreController(IClient clientService, IArticle articleService, ICommande commandeService) {
         this.clientService = clientService;
         this.articleService = articleService;
+        this.commandeService = commandeService;
     }
 
     @GetMapping(value = {"", "/home"})
@@ -34,6 +37,7 @@ public class StoreController {
     public RedirectView init() {
         clientService.init();
         articleService.init();
+        commandeService.init();
         return new RedirectView("/store/home");
     }
 }
