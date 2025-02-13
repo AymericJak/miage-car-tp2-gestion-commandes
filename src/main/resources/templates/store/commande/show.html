@@ -60,7 +60,7 @@
 					<tbody>
 						<tr th:each="article : ${commande.getArticles()}">
 							<td th:text="${article.getLibelle()}"></td>
-							<td th:text="${article.getPrix()}"></td>
+							<td th:text="${#numbers.formatDecimal(article.getPrix(), 1, 2)} + ' €'"></td>
 							<td th:text="${article.getQuantite()}"></td>
 							<td th:if="${editMode}">
 								<form th:action="@{/store/commande/{commandeId}/article/{articleId}/delete(commandeId=${commande.id}, articleId=${article.id})}"
@@ -72,6 +72,7 @@
 					</tbody>
 				</table>
 			</div>
+			<h3>Total de la commande : <span th:text="${#numbers.formatDecimal(total, 1, 2)} + ' €'"></span></h3>
 		</div>
 		<footer th:replace="~{fragments/footer :: common_footer}"></footer>
 	</body>

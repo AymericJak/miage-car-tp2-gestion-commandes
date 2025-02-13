@@ -42,7 +42,7 @@
 						<tbody>
 							<tr th:each="article : ${commande.getArticles()}">
 								<td th:text="${article.getLibelle()}"></td>
-								<td th:text="${article.getPrix()}"></td>
+								<td th:text="${#numbers.formatDecimal(article.getPrix(), 1, 2)} + ' €'"></td>
 								<td th:text="${article.getQuantite()}"></td>
 							</tr>
 						</tbody>

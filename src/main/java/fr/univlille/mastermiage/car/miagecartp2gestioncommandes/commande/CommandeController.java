@@ -43,6 +43,12 @@ public class CommandeController {
         return modelAndView;
     }
 
+    private double calculateTotal(Commande commande) {
+        return commande.getArticles().stream()
+                .mapToDouble(article -> article.getPrix() * article.getQuantite())
+                .sum();
+    }
+
     private ModelAndView getCommandeOrRedirect(Long id, String viewName, HttpSession session, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -70,6 +76,7 @@ public class CommandeController {
 
         modelAndView.setViewName(viewName);
         modelAndView.addObject("commande", commande);
+        modelAndView.addObject("total", calculateTotal(commande));
         return modelAndView;
     }
 
