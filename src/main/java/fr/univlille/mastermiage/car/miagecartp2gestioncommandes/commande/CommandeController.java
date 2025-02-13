@@ -42,29 +42,44 @@ public class CommandeController {
         return modelAndView;
     }
 
-    private ModelAndView getCommandeOrRedirect(Long id, String viewName, RedirectAttributes redirectAttributes) {
+    private ModelAndView getCommandeOrRedirect(Long id, String viewName, HttpSession session, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        Optional<Commande> commande = commandeService.findById(id);
 
-        if (commande.isPresent()) {
-            modelAndView.setViewName(viewName);
-            modelAndView.addObject("commande", commande.get());
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Commande introuvable.");
-            modelAndView.setViewName("redirect:/store/commande");
+        Client client = (Client) session.getAttribute("client");
+        if (client == null) {
+            redirectAttributes.addFlashAttribute("error", "Vous devez être connecté pour accéder à cette commande.");
+            modelAndView.setViewName("redirect:/store/client/login");
+            return modelAndView;
         }
 
+        Optional<Commande> optionalCommande = commandeService.findById(id);
+        if (optionalCommande.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Commande introuvable.");
+            modelAndView.setViewName("redirect:/store/commande");
+            return modelAndView;
+        }
+
+        Commande commande = optionalCommande.get();
+
+        if (!commande.getClient().getEmail().equals(client.getEmail())) {
+            redirectAttributes.addFlashAttribute("error", "Vous n'avez pas accès à cette commande.");
+            modelAndView.setViewName("redirect:/store/commande");
+            return modelAndView;
+        }
+
+        modelAndView.setViewName(viewName);
+        modelAndView.addObject("commande", commande);
         return modelAndView;
     }
 
     @GetMapping("/{id}")
-    public ModelAndView show(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        return getCommandeOrRedirect(id, "store/commande/show", redirectAttributes);
+    public ModelAndView show(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+        return getCommandeOrRedirect(id, "store/commande/show", session, redirectAttributes);
     }
 
     @GetMapping("/{id}/edit")
-    public ModelAndView edit(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = getCommandeOrRedirect(id, "store/commande/show", redirectAttributes);
+    public ModelAndView edit(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = getCommandeOrRedirect(id, "store/commande/show", session, redirectAttributes);
         modelAndView.addObject("editMode", true);
         return modelAndView;
     }
