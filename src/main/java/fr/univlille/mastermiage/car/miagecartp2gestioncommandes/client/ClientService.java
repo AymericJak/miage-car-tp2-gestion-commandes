@@ -9,12 +9,19 @@ import java.util.Optional;
 @Service
 public class ClientService implements IClient {
 
+    private final ClientRepository clientRepository;
+
     @Autowired
-    private ClientRepository clientRepository;
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     public void init() {
         Iterable<Client> clients = List.of(new Client[]{
-                new Client("miage@univ-lille.fr", "miage", "MonNom", "MonPrenom")
+                new Client("miage@univ-lille.fr", "miage", "MonNom", "MonPrenom"),
+                new Client("client1@univ-lille.fr", "miage", "nomClient1", "prenomClient1"),
+                new Client("client2@univ-lille.fr", "miage", "nomClient2", "prenomClient2"),
+                new Client("client3@univ-lille.fr", "miage", "nomClient3", "prenomClient3")
         });
         clientRepository.saveAll(clients);
     }

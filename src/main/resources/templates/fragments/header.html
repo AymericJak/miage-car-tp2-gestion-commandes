@@ -1,0 +1,24 @@
+<header th:fragment="common_header">
+	<nav id="menu-container">
+		<ul id="menu-elements">
+			<li class="menu-element">
+				<a th:href="@{/store/home}">Accueil</a>
+			</li>
+
+			<li class="menu-element" th:if="${session.client}">
+				<a th:href="@{/store/commande}">Commandes</a>
+			</li>
+
+			<!-- Si le client est connecté -->
+			<li class="menu-element" th:if="${session.client}">
+				<a th:href="@{/store/client/logout}">Se déconnecter</a>
+			</li>
+
+			<!-- Si le client n'est pas connecté -->
+			<li class="menu-element" th:unless="${session.client}">
+				<a th:href="@{/store/client/login}">Se connecter</a> |
+				<a th:href="@{/store/client/register}">Création d'un compte</a>
+			</li>
+		</ul>
+	</nav>
+</header>

@@ -1,7 +1,6 @@
 package fr.univlille.mastermiage.car.miagecartp2gestioncommandes.client;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
