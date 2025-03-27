@@ -20,4 +20,6 @@ public interface ICommande {
     void create(String nom, Client client);
 
     void save(Commande commande);
+
+    void deleteById(Long id);
 }
