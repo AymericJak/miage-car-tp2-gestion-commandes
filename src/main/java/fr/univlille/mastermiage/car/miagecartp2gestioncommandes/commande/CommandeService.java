@@ -83,4 +83,8 @@ public class CommandeService implements ICommande {
     public void save(Commande commande) {
         commandeRepository.save(commande);
     }
+
+    public void deleteById(Long id) {
+        commandeRepository.deleteById(id);
+    }
 }

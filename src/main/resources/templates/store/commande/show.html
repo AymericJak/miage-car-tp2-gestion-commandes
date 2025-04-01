@@ -73,6 +73,14 @@
 				</table>
 			</div>
 			<h3>Total de la commande : <span th:text="${#numbers.formatDecimal(total, 1, 2)} + ' €'"></span></h3>
+
+			<hr>
+
+			<h2>Passer la commande</h2>
+
+			<a th:href="@{/kafka/commande/{id}(id=${commande.id})}">
+				<button type="button">Commander</button>
+			</a>
 		</div>
 		<footer th:replace="~{fragments/footer :: common_footer}"></footer>
 	</body>
